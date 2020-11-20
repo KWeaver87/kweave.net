@@ -1,5 +1,4 @@
 #!/bin/bash
+# Publishes site via SSH
 
-cp ~/Nextcloud/Documents/Resume/out/Resume\ -\ Kyle\ Weaver.pdf out/resume.pdf
-cp ~/Nextcloud/Documents/Resume/out/Resume\ -\ Kyle\ Weaver.html out/resume.html
-scp out/* kweave.net:~/www/
+scp -r out/* kweave.net:~/www/
