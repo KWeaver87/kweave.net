@@ -3,8 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "build": "next build && next export",
+    "deploy": "npm run build && ./deploy.sh",
+    "dev": "next dev",
     "lint": "eslint --ext js,jsx,ts,tsx src/",
     "start": "next start"
   },
