@@ -6,7 +6,7 @@ export default function App({ Component, pageProps }: AppProps): JSX.Element {
     <div>
       <Head>
         <title>KWEAVE.NET</title>
-        <link rel="icon" href="/favicon.ico" />
+        {/* <link rel="icon" href="/favicon.ico" /> */}
       </Head>
 
       <Component {...pageProps} />
