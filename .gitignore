@@ -32,3 +32,6 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# deploy files
+out.tar.gz

@@ -1,5 +1,6 @@
 #!/bin/bash
 # Publishes site via SSH
-# TODO: Compress site to tar.gz, scp that, then extract on server
 
-scp -r out/* kweave.net:~/www/
+tar -czf out.tar.gz -C out .
+scp -r out.tar.gz kweave.net:~/www.tar.gz
+ssh kweave.net 'tar -zxf www.tar.gz -C www'
