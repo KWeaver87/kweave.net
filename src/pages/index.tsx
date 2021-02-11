@@ -1,3 +1,5 @@
+import AboutMe from '../components/about-me'
+
 export default function Home(): JSX.Element {
   return (
     <div>
@@ -5,6 +7,8 @@ export default function Home(): JSX.Element {
         <h1>
           Welcome to <a href="https://kweave.net/site/">KWEAVE.NET</a>!
         </h1>
+
+        <AboutMe />
 
         <p>This is all just placeholder until I create some actual content!</p>
         <p>
