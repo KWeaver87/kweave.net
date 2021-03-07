@@ -1,21 +1,46 @@
 import AboutMe from '../components/about-me'
+import BlogPosts from '../components/blog-posts'
+import { GetStaticProps } from 'next'
 
-export default function Home(): JSX.Element {
+interface Posts {
+  blog: [
+    {
+      title: string
+      content: string
+    }
+  ]
+}
+
+export default function Home({ blog }: Posts): JSX.Element {
   return (
     <div>
-      <main>
+      <header>
         <h1>
           Welcome to <a href="https://kweave.net/site/">KWEAVE.NET</a>!
         </h1>
 
         <AboutMe />
-
-        <p>This is all just placeholder until I create some actual content!</p>
-        <p>
-          For now, you can see my resume in <a href="resume.html">HTML</a> or{' '}
-          <a href="resume.pdf">PDF</a> formats.
-        </p>
+      </header>
+      <main>
+        <BlogPosts blogData={blog} />
       </main>
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      blog: [
+        {
+          title: 'Post 1',
+          contents: '<p>FirstWords</p>',
+        },
+        {
+          title: 'Post 2',
+          contents: '<p>SecondWords</p>',
+        },
+      ],
+    },
+  }
 }
