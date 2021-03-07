@@ -6,7 +6,7 @@ interface Posts {
   blog: [
     {
       title: string
-      content: string
+      contents: string
     }
   ]
 }
