@@ -1,3 +1,5 @@
+const ESLintPlugin = require('eslint-webpack-plugin')
+
 module.exports = {
   root: true,
   env: {
@@ -17,6 +19,7 @@ module.exports = {
     'plugin:jsx-a11y/recommended', // Accessibility rules
     'plugin:prettier/recommended',
   ],
+  plugins: [new ESLintPlugin()],
   overrides: [
     // This configuration will apply only to TypeScript files
     {
