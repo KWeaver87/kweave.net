@@ -10,4 +10,6 @@ npm run dev
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deployment
+
+Running `yarn deploy` will build the site and run deploy.sh to put the files on the server over SSH.
