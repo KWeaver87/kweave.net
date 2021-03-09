@@ -20,7 +20,7 @@ export default function BlogPosts({ blogPosts }: { blogPosts: Post[] }): JSX.Ele
           <h2>{post.title}</h2>
           <ul className={styles.postMetadata}>
             <li>Created: {post.createdStr}</li>
-            {post.modifiedStr ? <li>Modified: {post.modifiedStr}</li> : ''}
+            {post.modifiedStr ? <li>Last Modified: {post.modifiedStr}</li> : ''}
             <li>Tags: {post.tags}</li>
           </ul>
           <div dangerouslySetInnerHTML={{ __html: post.content }} />

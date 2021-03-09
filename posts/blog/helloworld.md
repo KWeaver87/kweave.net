@@ -1,10 +1,11 @@
 ---
 title: Hello, World!
 created: 2021-03-09
+modified: 2021-03-09
 tags: website, why_use_x
 ---
 
-I just completed the basics of the blogging engine for my site. I certainly had a rough time getting started on it, particularly having to get all the config files and VSCode to play nice together. For now, it simply renders some Markdown files into this area, but I hope to add some more features over time. I'll be sharing a small series of posts explaining some of the tech/libraries that I decided on using for making the site.
+I just completed the basics of the blogging engine for my site. I certainly had a rough time getting started on it, particularly having to get all the config files and VSCode to play nice together. For now, it simply renders some Markdown files into this area, but I hope to add some more features over time. I'll be sharing a small series of posts explaining some of the tech/libraries that I decided on using for making the site.  You can view the source code for the site over [on Github](https://github.com/KWeaver87/kweave.net/)!
 
 #### Tech used
 
