@@ -9,10 +9,7 @@ export default function AboutMe(): JSX.Element {
         formats.
       </p>
 
-      <p>
-        I like to solve practical problems wherever I can. Particularly in using technology to
-        automate some task, or just simply make that task easier to accomplish.
-      </p>
+      <p>I like to solve technical problems and fix things.</p>
     </div>
   )
 }
