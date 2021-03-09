@@ -1,17 +1,13 @@
 import AboutMe from '../components/about-me'
 import BlogPosts from '../components/blog-posts'
 import { GetStaticProps } from 'next'
+import { Posts } from '../models/posts'
+import loadPosts from '../util/load-posts'
 
-interface Posts {
-  blog: [
-    {
-      title: string
-      contents: string
-    }
-  ]
-}
+export default function Home(posts: Posts): JSX.Element {
+  const blogData = posts.get('blog')
+  if (blogData == undefined) throw new Error('No blog posts found')
 
-export default function Home({ blog }: Posts): JSX.Element {
   return (
     <div>
       <header>
@@ -22,7 +18,7 @@ export default function Home({ blog }: Posts): JSX.Element {
         <AboutMe />
       </header>
       <main>
-        <BlogPosts blogData={blog} />
+        <BlogPosts blogPosts={blogData} />
       </main>
     </div>
   )
@@ -30,17 +26,6 @@ export default function Home({ blog }: Posts): JSX.Element {
 
 export const getStaticProps: GetStaticProps = async () => {
   return {
-    props: {
-      blog: [
-        {
-          title: 'Post 1',
-          contents: '<p>FirstWords</p>',
-        },
-        {
-          title: 'Post 2',
-          contents: '<p>SecondWords</p>',
-        },
-      ],
-    },
+    props: loadPosts(`${process.cwd}/posts`),
   }
 }
