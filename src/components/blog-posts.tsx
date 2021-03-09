@@ -2,7 +2,7 @@ import { Post } from '../models/posts'
 import { toKebabCase } from '../util/helpers'
 
 export default function BlogPosts({ blogPosts }: { blogPosts: Post[] }): JSX.Element {
-  blogPosts.sort((a, b) => a.createdStr.localeCompare(b.createdStr))
+  blogPosts.sort((a, b) => b.createdStr.localeCompare(a.createdStr))
   return (
     <div id="blog-posts">
       <h1>Blog</h1>
