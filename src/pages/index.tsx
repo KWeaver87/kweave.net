@@ -1,21 +1,37 @@
 import AboutMe from '../components/about-me'
+import BlogPosts from '../components/blog-posts'
+import { GetStaticProps } from 'next'
+import loadPosts from '../util/load-posts'
+import { Post } from '../models/posts'
 
-export default function Home(): JSX.Element {
+export default function Home(posts: Record<string, Post[]>): JSX.Element {
+  const blogData = posts['blog']
+  if (blogData == undefined) throw new Error('No blog posts found')
+
   return (
     <div>
-      <main>
+      <header>
         <h1>
           Welcome to <a href="https://kweave.net/site/">KWEAVE.NET</a>!
         </h1>
 
         <AboutMe />
-
-        <p>This is all just placeholder until I create some actual content!</p>
-        <p>
-          For now, you can see my resume in <a href="resume.html">HTML</a> or{' '}
-          <a href="resume.pdf">PDF</a> formats.
-        </p>
+      </header>
+      <main>
+        <BlogPosts blogPosts={blogData} />
       </main>
     </div>
   )
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  try {
+    const allPosts = Object.fromEntries(await loadPosts(`${process.cwd()}/posts`))
+    return {
+      props: allPosts,
+    }
+  } catch (err) {
+    console.error(`Error loading posts: ${err}`)
+  }
+  throw new Error('Aborted at index.tsx>getStaticProps')
 }
