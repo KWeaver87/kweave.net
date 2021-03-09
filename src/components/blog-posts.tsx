@@ -1,5 +1,6 @@
 import { Post } from '../models/posts'
 import { toKebabCase } from '../util/helpers'
+import styles from './blog-posts.module.scss'
 
 export default function BlogPosts({ blogPosts }: { blogPosts: Post[] }): JSX.Element {
   blogPosts.sort((a, b) => b.createdStr.localeCompare(a.createdStr))
@@ -17,9 +18,11 @@ export default function BlogPosts({ blogPosts }: { blogPosts: Post[] }): JSX.Ele
       {blogPosts.map((post) => (
         <article key={post.title} id={toKebabCase(post.title)}>
           <h2>{post.title}</h2>
-          <h6>Created: {post.createdStr}</h6>
-          <h6>Tags: {post.tags}</h6>
-
+          <ul className={styles.postMetadata}>
+            <li>Created: {post.createdStr}</li>
+            {post.modifiedStr ? <li>Modified: {post.modifiedStr}</li> : ''}
+            <li>Tags: {post.tags}</li>
+          </ul>
           <div dangerouslySetInnerHTML={{ __html: post.content }} />
         </article>
       ))}

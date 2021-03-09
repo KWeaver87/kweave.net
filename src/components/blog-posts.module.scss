@@ -1,0 +1,12 @@
+.postMetadata {
+    color: grey;
+    list-style: none;
+    display: table-row;
+}
+
+.postMetadata li {
+    display: table-cell;
+    padding: 0px 15px 0px 15px;
+    border-bottom: 1px solid grey;
+    font-size: small;
+}
