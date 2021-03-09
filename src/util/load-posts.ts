@@ -1,7 +1,8 @@
 import { readdir, readFile } from 'fs/promises'
-import { Post, Posts } from '../models/posts'
+import { Post, Posts, SerializedPost } from '../models/posts'
 import fm, { FrontMatterResult } from 'front-matter'
 import marked from 'marked'
+import { dateToIsoDay } from './helpers'
 
 export default async function LoadPosts(postsPath: string): Promise<Posts> {
   const postsDirs = await readdir(postsPath, { withFileTypes: true })
@@ -18,13 +19,12 @@ export default async function LoadPosts(postsPath: string): Promise<Posts> {
             subdirFiles.map(async (fileName) => {
               const rawContents = await readFile(`${subdirPath}/${fileName}`)
 
-              const fmContents: FrontMatterResult<Post> = fm(rawContents.toString())
-              // TODO: Stop serializing dates
+              const fmContents: FrontMatterResult<SerializedPost> = fm(rawContents.toString())
               const att = fmContents.attributes
               const newPost: Post = {
                 title: att.title,
-                created: att.created.toString(),
-                modified: att.modified?.toString(),
+                createdStr: dateToIsoDay(att.created),
+                modifiedStr: dateToIsoDay(att.modified),
                 tags: att.tags,
                 content: marked(fmContents.body),
               }

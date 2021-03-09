@@ -4,3 +4,7 @@ export function toKebabCase(str: string): string {
     .map((s) => s.toLowerCase())
     .join('-')
 }
+
+export function dateToIsoDay(date: Date | undefined): string {
+  return date ? `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}` : ''
+}
