@@ -1,7 +1,7 @@
 export interface Post {
   title: string
-  created: Date
-  modified?: Date
+  created: string
+  modified?: string
   tags: string
   content: string
 }

@@ -1,33 +1,43 @@
 import { readdir, readFile } from 'fs/promises'
 import { Post, Posts } from '../models/posts'
+import fm, { FrontMatterResult } from 'front-matter'
+import marked from 'marked'
 
 export default async function LoadPosts(postsPath: string): Promise<Posts> {
-  const allPosts: Posts = new Map()
   const postsDirs = await readdir(postsPath, { withFileTypes: true })
 
-  postsDirs
-    .filter((dirent) => dirent.isDirectory())
-    .map((dir) => dir.name)
-    .forEach(async (dir) => {
-      const subPosts: Post[] = []
-      const subdirPath = `${postsPath}/${dir}`
-      const subdirFiles = await readdir(subdirPath)
+  const allPosts: [string, Post[]][] = await Promise.all(
+    postsDirs
+      .filter((dirent) => dirent.isDirectory())
+      .map(
+        async (dir): Promise<[string, Post[]]> => {
+          const subdirPath = `${postsPath}/${dir.name}`
+          const subdirFiles = await readdir(subdirPath)
 
-      subdirFiles.forEach(async (file) => {
-        const contents = await readFile(`${subdirPath}/${file}`)
+          const subPosts = await Promise.all(
+            subdirFiles.map(async (fileName) => {
+              const rawContents = await readFile(`${subdirPath}/${fileName}`)
 
-        // TODO: front-matter, convert to markdown, sanitize HTML
+              const fmContents: FrontMatterResult<Post> = fm(rawContents.toString())
+              // TODO: Stop serializing dates
+              const att = fmContents.attributes
+              const newPost: Post = {
+                title: att.title,
+                created: att.created.toString(),
+                modified: att.modified?.toString(),
+                tags: att.tags,
+                content: marked(fmContents.body),
+              }
 
-        subPosts.push({
-          title: 'moo',
-          created: new Date('1990-01-01'),
-          content: contents.toString(),
-          tags: 'one, two',
-        })
-      })
+              // TODO: sanitize HTML?
+              return newPost
+            })
+          )
 
-      allPosts.set(dir, subPosts)
-    })
+          return [dir.name, subPosts]
+        }
+      )
+  )
 
-  return allPosts
+  return new Map(allPosts)
 }
