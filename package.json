@@ -4,8 +4,9 @@
   "private": true,
   "scripts": {
     "build": "next build && next export",
-    "deploy": "npm run build && ./deploy.sh",
+    "deploy": "npm run import && npm run build && ./deploy.sh",
     "dev": "NODE_OPTIONS='--inspect' next dev",
+	"import": "./import.sh",
     "lint": "eslint --ext js,jsx,ts,tsx src/",
     "start": "next start"
   },
