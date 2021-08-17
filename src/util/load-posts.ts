@@ -10,33 +10,31 @@ export default async function LoadPosts(postsPath: string): Promise<Posts> {
   const allPosts: [string, Post[]][] = await Promise.all(
     postsDirs
       .filter((dirent) => dirent.isDirectory())
-      .map(
-        async (dir): Promise<[string, Post[]]> => {
-          const subdirPath = `${postsPath}/${dir.name}`
-          const subdirFiles = await readdir(subdirPath)
+      .map(async (dir): Promise<[string, Post[]]> => {
+        const subdirPath = `${postsPath}/${dir.name}`
+        const subdirFiles = await readdir(subdirPath)
 
-          const subPosts = await Promise.all(
-            subdirFiles.map(async (fileName) => {
-              const rawContents = await readFile(`${subdirPath}/${fileName}`)
+        const subPosts = await Promise.all(
+          subdirFiles.map(async (fileName) => {
+            const rawContents = await readFile(`${subdirPath}/${fileName}`)
 
-              const fmContents: FrontMatterResult<SerializedPost> = fm(rawContents.toString())
-              const att = fmContents.attributes
-              const newPost: Post = {
-                title: att.title,
-                createdStr: dateToIsoDay(att.created),
-                modifiedStr: dateToIsoDay(att.modified),
-                tags: att.tags,
-                content: marked(fmContents.body),
-              }
+            const fmContents: FrontMatterResult<SerializedPost> = fm(rawContents.toString())
+            const att = fmContents.attributes
+            const newPost: Post = {
+              title: att.title,
+              createdStr: dateToIsoDay(att.created),
+              modifiedStr: dateToIsoDay(att.modified),
+              tags: att.tags,
+              content: marked(fmContents.body),
+            }
 
-              // TODO: sanitize HTML?
-              return newPost
-            })
-          )
+            // TODO: sanitize HTML?
+            return newPost
+          })
+        )
 
-          return [dir.name, subPosts]
-        }
-      )
+        return [dir.name, subPosts]
+      })
   )
 
   return new Map(allPosts)

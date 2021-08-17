@@ -7,8 +7,9 @@ export function toKebabCase(str: string): string {
 
 export function dateToIsoDay(date: Date | undefined): string {
   return date
-    ? `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1)
+    ? `${date.getUTCFullYear()}-${(date.getUTCMonth() + 1).toString().padStart(2, '0')}-${date
+        .getUTCDate()
         .toString()
-        .padStart(2, '0')}-${date.getUTCDate().toString().padStart(2, '0')}`
+        .padStart(2, '0')}`
     : ''
 }
