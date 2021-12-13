@@ -17,8 +17,8 @@
   },
   "devDependencies": {
     "@types/marked": "^2.0.0",
-    "@types/node": "^15.3.0",
-    "@types/react": "^17.0.3",
+    "@types/node": "^16.11.12",
+    "@types/react": "^17.0.37",
     "@typescript-eslint/eslint-plugin": "^4.16.1",
     "@typescript-eslint/parser": "^4.16.1",
     "eslint": "^7.21.0",
