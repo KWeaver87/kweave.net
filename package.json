@@ -27,7 +27,7 @@
     "eslint-config-prettier": "^8.1.0",
     "eslint-plugin-prettier": "^4.0.0",
     "front-matter": "^4.0.2",
-    "marked": "^2.0.1",
+    "marked": "^4.0.10",
     "prettier": "^2.5.1",
     "sass": "^1.45.0",
     "typescript": "^4.5.3"
