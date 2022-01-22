@@ -1,7 +1,7 @@
 import { readdir, readFile } from 'fs/promises'
 import { Post, Posts, SerializedPost } from '../models/posts'
 import fm, { FrontMatterResult } from 'front-matter'
-import marked from 'marked'
+import { marked } from 'marked'
 import { dateToIsoDay } from './helpers'
 
 export default async function LoadPosts(postsPath: string): Promise<Posts> {
@@ -25,7 +25,7 @@ export default async function LoadPosts(postsPath: string): Promise<Posts> {
               createdStr: dateToIsoDay(att.created),
               modifiedStr: dateToIsoDay(att.modified),
               tags: att.tags,
-              content: marked(fmContents.body),
+              content: marked.parse(fmContents.body),
             }
 
             // TODO: sanitize HTML?
